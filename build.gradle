@@ -1,0 +1,50 @@
+plugins {
+	id 'org.springframework.boot' version '2.4.5'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+}
+
+group = 'com.diploma'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.4.4'
+
+	//Validation
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.4.4'
+
+
+	//Common(Resource)
+	implementation 'com.google.guava:guava:26.0-jre'
+
+	//Json mysql
+	implementation group: 'com.vladmihalcea', name: 'hibernate-types-52', version: '2.10.4'
+
+	//Docx
+	implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '5.0.0'
+
+	compileOnly 'org.projectlombok:lombok'
+
+	//Db
+	runtimeOnly 'mysql:mysql-connector-java'
+
+	//Db migration
+	implementation 'org.flywaydb:flyway-core'
+
+	annotationProcessor 'org.projectlombok:lombok'
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test'
+}
+
+test {
+	useJUnitPlatform()
+}
