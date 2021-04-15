@@ -96,7 +96,8 @@ public class SecurityUtils {
     }
     public static User getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return authentication != null? (User) authentication.getPrincipal() :null;
+
+        return authentication != null && !authentication.getPrincipal().equals("anonymousUser")? (User) authentication.getPrincipal() :null;
     }
 
     public boolean isCurrentUserCanEditReportIfIsOwnerAndReportStatusUNCHECKEDOrIsOwnerChairmanOrAdmin(@NonNull Report report){

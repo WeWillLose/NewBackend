@@ -18,7 +18,8 @@ public class UserMapperImpl implements com.diploma.Backend.rest.service.mapper.I
 
     @Override
     public UserDTO userToUserDTO(User user) {
-        return UserDTO.builder()
+        return user == null? null:
+         UserDTO.builder()
             .firstName(user.getFirstName())
             .lastName(user.getLastName())
             .middleName(user.getMiddleName())
