@@ -136,7 +136,7 @@ public class UserServiceImpl implements com.diploma.Backend.service.user.UserSer
             if(!userValidationService.validateUserUsername(changedUser.getUsername())){
                 throw new ValidationExceptionImpl("username не прошел валидацию");
             }
-            if(existsByUsername(changedUser.getUsername())) throw new UsernameAlreadyTaken(changedUser.getUsername());
+            if(!user.getUsername().equals(changedUser.getUsername()) && existsByUsername(changedUser.getUsername())) throw new UsernameAlreadyTaken(changedUser.getUsername());
             user.setUsername(changedUser.getUsername());
         }
         if (changedUser.getFirstName() != null && !changedUser.getFirstName().isBlank()) {

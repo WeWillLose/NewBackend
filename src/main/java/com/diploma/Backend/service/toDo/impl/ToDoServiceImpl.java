@@ -97,7 +97,7 @@ public class ToDoServiceImpl implements ToDoService {
         if(toDo == null){
             throw new ToDoNotFoundExceptionImpl(toDoId);
         }
-        if(SecurityUtils.isCurrentUserEqualsUserOrAdmin(toDo.getAuthor())){
+        if(!SecurityUtils.isCurrentUserEqualsUserOrAdmin(toDo.getAuthor())){
             throw new ForbiddenExceptionImpl();
         }
         toDoRepository.delete(toDo);
