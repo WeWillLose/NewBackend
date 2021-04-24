@@ -3,7 +3,6 @@ package com.diploma.Backend.service.docx.scoreList.impl;
 
 import com.diploma.Backend.model.Report;
 import com.diploma.Backend.service.docx.docxCommon.CustomDocFunction;
-import com.diploma.Backend.service.docx.docxCommon.XWPFDocxCommonService;
 import com.diploma.Backend.service.docx.scoreList.ScoreListDocxService;
 import com.fasterxml.jackson.databind.JsonNode;
 import lombok.NonNull;
@@ -84,7 +83,7 @@ public class ScoreListDocxServiceImpl implements ScoreListDocxService {
 
     private void parsScoreListTemplate(@NonNull XWPFDocument scoreListTemplate,@NonNull  JsonNode data,@NonNull String regexp){
         replacePlaceholdersInTables(scoreListTemplate.getTables(),data,regexp);
-        XWPFDocxCommonService.replacePlaceholdersInParagraphsFromDataOrDataMeta(scoreListTemplate.getParagraphs(), data,regexp);
+        XWPFDocxCommonService.replacePlaceholdersInParagraphsFromData(scoreListTemplate.getParagraphs(), data,regexp);
     }
 
     private InputStreamResource getInputStreamFromDoc(@NonNull XWPFDocument docx) throws IOException {

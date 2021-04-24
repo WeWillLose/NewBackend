@@ -1,5 +1,6 @@
 package com.diploma.Backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.vladmihalcea.hibernate.type.json.JsonStringType;
 import lombok.*;

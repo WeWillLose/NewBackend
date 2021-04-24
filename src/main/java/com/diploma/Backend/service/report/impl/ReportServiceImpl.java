@@ -133,12 +133,6 @@ public class ReportServiceImpl implements ReportService {
 
         if (author.getChairman() != null && report.getData().get("META").get("chairmanFIO") == null) {
             ((ObjectNode) report.getData().get("META")).put("chairmanFIO",
-                userUtils.getFioFromUser(author)
-            );
-        }
-
-        if (report.getData().get("META").get("fioShort") == null) {
-            ((ObjectNode) report.getData().get("META")).put("fioShort",
                 userUtils.getShortFioFromUser(author)
             );
         }

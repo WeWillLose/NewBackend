@@ -14,5 +14,5 @@ public interface XWPFDocxCommonService {
 
     void deletePlaceholdersByColor(XWPFTableCell xwpfTableCell, String colorToDelete);
 
-    void replacePlaceholdersInParagraphsFromDataOrDataMeta(List<XWPFParagraph> paragraphs, JsonNode data, String regexp);
+    void replacePlaceholdersInParagraphsFromData(List<XWPFParagraph> paragraphs, JsonNode data, String regexp);
 }

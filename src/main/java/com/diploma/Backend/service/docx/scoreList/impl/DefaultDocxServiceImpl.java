@@ -81,7 +81,7 @@ public class DefaultDocxServiceImpl implements ScoreListDocxService {
                                     value = data.get("META").get(group1);
                                 }
                                 if(value == null){
-                                    value = data.get("data").get(group1);
+                                    value = data.get("tables").get(group1);
                                 }
 
                                 String text;
@@ -103,65 +103,66 @@ public class DefaultDocxServiceImpl implements ScoreListDocxService {
                 }
             }
         }
-        xwpfDocxCommonService.replacePlaceholdersInParagraphsFromDataOrDataMeta(docx.getParagraphs(),data,REGEXP);
+        xwpfDocxCommonService.replacePlaceholdersInParagraphsFromData(docx.getParagraphs(),data,REGEXP);
     }
 
     private ObjectNode getData(@NonNull JsonNode reportData) {
         ObjectNode jsonNodes = JsonNodeFactory.instance.objectNode();
         jsonNodes.set("computed",reportData.get("computed"));
         jsonNodes.set("META",reportData.get("META"));
+        jsonNodes.set("tables",reportData.get("tables"));
 
-        jsonNodes.put("1", computedValuesService.getScoreSum(reportData.get("data").get("comment"),8));
-        jsonNodes.put("1.1", computedValuesService.getScoreSum(reportData.get("data").get("comment")));
-        jsonNodes.put("2.1", computedValuesService.getScoreSum(reportData.get("data").get("creation")));
-        jsonNodes.put("2.2", computedValuesService.getScoreSum(reportData.get("data").get("proective")));
-        jsonNodes.put("2.2.1", computedValuesService.getScoreSum(reportData.get("data").get("proective"),0,null));
-        jsonNodes.put("2.2.2", computedValuesService.getScoreSum(reportData.get("data").get("proective"),1,null));
+        jsonNodes.put("1", computedValuesService.getScoreSum(reportData.get("tables").get("comment"),8));
+        jsonNodes.put("1.1", computedValuesService.getScoreSum(reportData.get("tables").get("comment")));
+        jsonNodes.put("2.1", computedValuesService.getScoreSum(reportData.get("tables").get("creation")));
+        jsonNodes.put("2.2", computedValuesService.getScoreSum(reportData.get("tables").get("proective")));
+        jsonNodes.put("2.2.1", computedValuesService.getScoreSum(reportData.get("tables").get("proective"),0,null));
+        jsonNodes.put("2.2.2", computedValuesService.getScoreSum(reportData.get("tables").get("proective"),1,null));
         double g2 = jsonNodes.get("2.1").asDouble(0) + jsonNodes.get("2.2").asDouble(0);
         jsonNodes.put("2",g2>8?8:g2);
         jsonNodes.put("procent1", computedValuesService.getProcent1(jsonNodes.get("computed").get("sum1").asDouble(0)));
-        jsonNodes.put("3.1", computedValuesService.IsSmth(reportData.get("data").get("working_program")));
-        jsonNodes.put("3.2.1", computedValuesService.getScoreSum(reportData.get("data").get("class_rooms")));
-        jsonNodes.put("3.2.2", computedValuesService.getScoreSum(reportData.get("data").get("programs")));
-        jsonNodes.put("3.2.3", computedValuesService.getScoreSum(reportData.get("data").get("reconstruction")));
+        jsonNodes.put("3.1", computedValuesService.IsSmth(reportData.get("tables").get("working_program")));
+        jsonNodes.put("3.2.1", computedValuesService.getScoreSum(reportData.get("tables").get("class_rooms")));
+        jsonNodes.put("3.2.2", computedValuesService.getScoreSum(reportData.get("tables").get("programs")));
+        jsonNodes.put("3.2.3", computedValuesService.getScoreSum(reportData.get("tables").get("reconstruction")));
         jsonNodes.put("3.2", jsonNodes.get("3.2.1").asDouble(0) + jsonNodes.get("3.2.2").asDouble(0) + jsonNodes.get("3.2.3").asDouble(0));
-        jsonNodes.put("3.3", computedValuesService.getScoreSum(reportData.get("data").get("complex")));
-        jsonNodes.put("3.4", computedValuesService.getScoreSum(reportData.get("data").get("teachingaids")));
-        jsonNodes.put("3.5", computedValuesService.getScoreSum(reportData.get("data").get("education")));
-        jsonNodes.put("3.6", computedValuesService.getScoreSum(reportData.get("data").get("sdo")));
+        jsonNodes.put("3.3", computedValuesService.getScoreSum(reportData.get("tables").get("complex")));
+        jsonNodes.put("3.4", computedValuesService.getScoreSum(reportData.get("tables").get("teachingaids")));
+        jsonNodes.put("3.5", computedValuesService.getScoreSum(reportData.get("tables").get("education")));
+        jsonNodes.put("3.6", computedValuesService.getScoreSum(reportData.get("tables").get("sdo")));
         double g3 = jsonNodes.get("3.2").asDouble(0) + jsonNodes.get("3.3").asDouble(0) + jsonNodes.get("3.4").asDouble(0) + jsonNodes.get("3.5").asDouble(0) + jsonNodes.get("3.6").asDouble(0);
         jsonNodes.put("3",g3>13?13:g3 );
-        jsonNodes.put("4.1", computedValuesService.getScoreSum(reportData.get("data").get("plan")));
-        jsonNodes.put("4.2", computedValuesService.getScoreSum(reportData.get("data").get("circle")));
-        jsonNodes.put("4.3", computedValuesService.getScoreSum(reportData.get("data").get("institutions")));
-        jsonNodes.put("4.4", computedValuesService.getScoreSum(reportData.get("data").get("events")));
+        jsonNodes.put("4.1", computedValuesService.getScoreSum(reportData.get("tables").get("plan")));
+        jsonNodes.put("4.2", computedValuesService.getScoreSum(reportData.get("tables").get("circle")));
+        jsonNodes.put("4.3", computedValuesService.getScoreSum(reportData.get("tables").get("institutions")));
+        jsonNodes.put("4.4", computedValuesService.getScoreSum(reportData.get("tables").get("events")));
         double g4 = jsonNodes.get("4.1").asDouble(0) + jsonNodes.get("4.2").asDouble(0) + jsonNodes.get("4.3").asDouble(0) + jsonNodes.get("4.4").asDouble(0);
         jsonNodes.put("4", g4>6?6:g4);
-        jsonNodes.put("5.1", computedValuesService.IsSmth(reportData.get("data").get("plan_group")));
-        jsonNodes.put("5.2", computedValuesService.getScoreSum(reportData.get("data").get("coolhours")));
-        jsonNodes.put("5.3", computedValuesService.getScoreSum(reportData.get("data").get("activity")));
-        jsonNodes.put("5.4", computedValuesService.getScoreSum(reportData.get("data").get("obz")));
+        jsonNodes.put("5.1", computedValuesService.IsSmth(reportData.get("tables").get("plan_group")));
+        jsonNodes.put("5.2", computedValuesService.getScoreSum(reportData.get("tables").get("coolhours")));
+        jsonNodes.put("5.3", computedValuesService.getScoreSum(reportData.get("tables").get("activity")));
+        jsonNodes.put("5.4", computedValuesService.getScoreSum(reportData.get("tables").get("obz")));
         double g5 = jsonNodes.get("5.2").asDouble(0) + jsonNodes.get("5.3").asDouble(0) + jsonNodes.get("5.4").asDouble(0);
         jsonNodes.put("5", g5>4?4:g5);
-        jsonNodes.put("6.1.1", computedValuesService.getScoreSum(reportData.get("data").get("selfeducation")));
-        jsonNodes.put("6.1.2", computedValuesService.getScoreSum(reportData.get("data").get("qualification")));
-        jsonNodes.put("6.1.3", computedValuesService.getScoreSum(reportData.get("data").get("seminars")));
-        jsonNodes.put("6.1.4", computedValuesService.getScoreSum(reportData.get("data").get("participation")));
+        jsonNodes.put("6.1.1", computedValuesService.getScoreSum(reportData.get("tables").get("selfeducation")));
+        jsonNodes.put("6.1.2", computedValuesService.getScoreSum(reportData.get("tables").get("qualification")));
+        jsonNodes.put("6.1.3", computedValuesService.getScoreSum(reportData.get("tables").get("seminars")));
+        jsonNodes.put("6.1.4", computedValuesService.getScoreSum(reportData.get("tables").get("participation")));
         jsonNodes.put("6.1", jsonNodes.get("6.1.1").asDouble(0) + jsonNodes.get("6.1.2").asDouble(0) + jsonNodes.get("6.1.3").asDouble(0) + jsonNodes.get("6.1.4").asDouble(0));
-        jsonNodes.put("6.2", computedValuesService.getScoreSum(reportData.get("data").get("contest")));
+        jsonNodes.put("6.2", computedValuesService.getScoreSum(reportData.get("tables").get("contest")));
         double g6 = jsonNodes.get("6.1").asDouble(0) + jsonNodes.get("6.2").asDouble(0);
         jsonNodes.put("6", g6>7?7:g6);
-        jsonNodes.put("7", computedValuesService.getScoreSum(reportData.get("data").get("technologies"),2));
-        jsonNodes.put("8", computedValuesService.getScoreSum(reportData.get("data").get("experience"),4));
-        jsonNodes.put("9", computedValuesService.getScoreSum(reportData.get("data").get("interaction"),4));
-        jsonNodes.put("9.1", computedValuesService.getScoreSum(reportData.get("data").get("interaction"),0,null));
-        jsonNodes.put("9.2", computedValuesService.getScoreSum(reportData.get("data").get("interaction"),1,null));
-        jsonNodes.put("9.3", computedValuesService.getScoreSum(reportData.get("data").get("interaction"),2,null));
-        jsonNodes.put("9.4", computedValuesService.getScoreSum(reportData.get("data").get("interaction"),3,null));
-        jsonNodes.put("9.5", computedValuesService.getScoreSum(reportData.get("data").get("interaction"),4,null));
-        jsonNodes.put("10", computedValuesService.getScoreSum(reportData.get("data").get("subject"),1));
-        jsonNodes.put("10.1", computedValuesService.getScoreSum(reportData.get("data").get("subject"),1));
-        jsonNodes.put("11", computedValuesService.getScoreSum(reportData.get("data").get("manual"),20));
+        jsonNodes.put("7", computedValuesService.getScoreSum(reportData.get("tables").get("technologies"),2));
+        jsonNodes.put("8", computedValuesService.getScoreSum(reportData.get("tables").get("experience"),4));
+        jsonNodes.put("9", computedValuesService.getScoreSum(reportData.get("tables").get("interaction"),4));
+        jsonNodes.put("9.1", computedValuesService.getScoreSum(reportData.get("tables").get("interaction"),0,null));
+        jsonNodes.put("9.2", computedValuesService.getScoreSum(reportData.get("tables").get("interaction"),1,null));
+        jsonNodes.put("9.3", computedValuesService.getScoreSum(reportData.get("tables").get("interaction"),2,null));
+        jsonNodes.put("9.4", computedValuesService.getScoreSum(reportData.get("tables").get("interaction"),3,null));
+        jsonNodes.put("9.5", computedValuesService.getScoreSum(reportData.get("tables").get("interaction"),4,null));
+        jsonNodes.put("10", computedValuesService.getScoreSum(reportData.get("tables").get("subject"),1));
+        jsonNodes.put("10.1", computedValuesService.getScoreSum(reportData.get("tables").get("subject"),1));
+        jsonNodes.put("11", computedValuesService.getScoreSum(reportData.get("tables").get("manual"),20));
         jsonNodes.put("procent2", computedValuesService.getProcent2(jsonNodes.get("computed").get("sum2").asDouble(0)));
         return jsonNodes;
     }

@@ -1,5 +1,6 @@
 package com.diploma.Backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -46,6 +47,7 @@ public class User extends AbstractAuditingEntity implements UserDetails, Seriali
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "chairman_id")
+    @JsonIgnore
     private User chairman;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -55,9 +57,11 @@ public class User extends AbstractAuditingEntity implements UserDetails, Seriali
     private Set<Role> roles;
 
     @OneToMany (mappedBy="author", fetch=FetchType.LAZY,cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<Report> reports = new HashSet<>();
 
     @OneToMany (mappedBy="author", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<ToDo> toDos = new HashSet<>();
 
     @Column(name = "is_active")

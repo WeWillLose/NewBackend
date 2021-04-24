@@ -42,10 +42,10 @@ public class ReportValidationServiceImpl implements ReportValidationService {
             errors.add("Данные ключа computed должны быть обьектом");
         }
 
-        if(data.get("data") ==null){
+        if(data.get("tables") ==null){
             log.error("IN saveReport data doesnt contains key data, data: {}",data);
             errors.add("Данные не содержат ключ data");
-        }else if(!data.get("data").isObject()){
+        }else if(!data.get("tables").isObject()){
             log.error("IN saveReport data.data is not object, data: {}",data);
             errors.add("Данные ключа data должны быть обьектом");
         }

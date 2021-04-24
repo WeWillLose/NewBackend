@@ -87,7 +87,7 @@ public class ReportDocxServiceImpl implements ReportDocxService {
                 //method to get Columns metadata (ColumnInd, filedName in <tablename>.data) And delete placeholder in tablecell by row
                 Map<Integer, String> columnIndexAndFieldName = parsRow(table.getRow(1), regexp);
 
-                JsonNode rowsData = data.get("data").get(tableName);
+                JsonNode rowsData = data.get("tables").get(tableName);
 
                 if (rowsData != null) {
                     if (!rowsData.isArray()) {
@@ -143,7 +143,7 @@ public class ReportDocxServiceImpl implements ReportDocxService {
     private void parsReportTemplate(@NonNull XWPFDocument reportTemplate,@NonNull JsonNode data,@NonNull String regexp) {
 
         replacePlaceholdersInTablesAndFillTableFromData(reportTemplate.getTables(), data,regexp);
-        XWPFDocxCommonService.replacePlaceholdersInParagraphsFromDataOrDataMeta(reportTemplate.getParagraphs(), data,regexp);
+        XWPFDocxCommonService.replacePlaceholdersInParagraphsFromData(reportTemplate.getParagraphs(), data,regexp);
     }
     private InputStreamResource getInputStreamResourceFromXWPFDoc(@NonNull XWPFDocument doc) throws IOException {
         try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream()) {

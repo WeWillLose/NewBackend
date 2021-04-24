@@ -36,6 +36,7 @@ public class ReportController {
         return   ResponseEntity.ok(reportService.saveReport(report,user.getId()));
 
     }
+
     @GetMapping("docx/{id:\\d+}")
     public ResponseEntity<?> getReportDocx(@PathVariable Long id){
         InputStreamResourceDTO inputStreamResource = reportService.generateReportDocx(id);

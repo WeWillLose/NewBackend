@@ -62,7 +62,7 @@ public class XWPFXWPFDocxCommonServiceImpl implements XWPFDocxCommonService {
         }
     }
     @Override
-    public void replacePlaceholdersInParagraphsFromDataOrDataMeta(@NonNull List<XWPFParagraph> paragraphs, @NonNull JsonNode data, @NonNull String regexp) {
+    public void replacePlaceholdersInParagraphsFromData(@NonNull List<XWPFParagraph> paragraphs, @NonNull JsonNode data, @NonNull String regexp) {
         if(paragraphs.isEmpty()) {
             log.warn("In replacePlaceholdersInParagraphs paragraphs is empty");
         }
@@ -96,6 +96,9 @@ public class XWPFXWPFDocxCommonServiceImpl implements XWPFDocxCommonService {
                     }
                     if(valueFromData == null && data.get("computed")!=null){
                         valueFromData = data.get("computed").get(valueInPlaceholder);
+                    }
+                    if(valueFromData == null && data.get("tables")!=null){
+                        valueFromData = data.get("tables").get(valueInPlaceholder);
                     }
                     if(valueFromData == null){
                         valueFromData = data.get(valueInPlaceholder);
