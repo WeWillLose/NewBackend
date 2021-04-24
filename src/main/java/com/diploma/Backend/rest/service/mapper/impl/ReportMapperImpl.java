@@ -35,7 +35,8 @@ public class ReportMapperImpl implements IReportMapper {
                     .id(report.getId())
                     .reportName(report.getReportName())
                     .status(report.getStatus())
-                    .createdData((report.getCreatedDate()))
+                    .createdDate((report.getCreatedDate()))
+                    .createdBy(report.getCreatedBy())
                     .build();
         }
     }
@@ -55,7 +56,8 @@ public class ReportMapperImpl implements IReportMapper {
                     .id(report.getId())
                     .reportName(report.getReportName())
                     .status(report.getStatus())
-                    .createdData((report.getCreatedDate()))
+                    .createdDate((report.getCreatedDate()))
+                    .createdBy(report.getCreatedBy())
                     .build();
         }
     }
@@ -76,8 +78,9 @@ public class ReportMapperImpl implements IReportMapper {
                     .id(reportDTO.getId())
                     .reportName(reportDTO.getReportName())
                     .status(reportDTO.getStatus())
+                    .createdBy(reportDTO.getCreatedBy())
+                    .createdDate(reportDTO.getCreatedDate())
                     .build();
-            build.setCreatedDate(reportDTO.getCreatedData());
             return build;
         }
     }

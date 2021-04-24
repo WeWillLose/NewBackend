@@ -29,12 +29,14 @@ public class ToDoMapperImpl implements IToDoMapper {
             return null;
         } else {
             return ToDoDTO.builder()
-                .author(userMapper.userToUserDTO(toDo.getAuthor()))
-                .description(toDo.getDescription())
-                .text(toDo.getText())
-                .id(toDo.getId())
-                .title(toDo.getTitle())
-                .build();
+                    .author(userMapper.userToUserDTO(toDo.getAuthor()))
+                    .description(toDo.getDescription())
+                    .text(toDo.getText())
+                    .id(toDo.getId())
+                    .title(toDo.getTitle())
+                    .createdDate((toDo.getCreatedDate()))
+                    .createdBy(toDo.getCreatedBy())
+                    .build();
         }
     }
 
@@ -49,12 +51,14 @@ public class ToDoMapperImpl implements IToDoMapper {
             return null;
         } else {
             return ToDo.builder()
-                .author(userMapper.userDTOToUser(toDoDTO.getAuthor()))
-                .description(toDoDTO.getDescription())
-                .id(toDoDTO.getId())
-                .text(toDoDTO.getText())
-                .title(toDoDTO.getTitle())
-                .build();
+                    .author(userMapper.userDTOToUser(toDoDTO.getAuthor()))
+                    .description(toDoDTO.getDescription())
+                    .id(toDoDTO.getId())
+                    .text(toDoDTO.getText())
+                    .title(toDoDTO.getTitle())
+                    .createdDate((toDoDTO.getCreatedDate()))
+                    .createdBy(toDoDTO.getCreatedBy())
+                    .build();
         }
     }
 }

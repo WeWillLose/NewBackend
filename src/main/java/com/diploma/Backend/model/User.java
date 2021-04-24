@@ -3,6 +3,7 @@ package com.diploma.Backend.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -19,7 +20,7 @@ import java.util.Set;
 @Table(name = "user")
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 public class User extends AbstractAuditingEntity implements UserDetails, Serializable {
 
     static final long SerialVersionUID = 1L;

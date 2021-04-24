@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import java.time.Instant;
 import java.util.Date;
@@ -14,8 +15,8 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Builder
-public class ReportDTO {
+@SuperBuilder
+public class ReportDTO extends AuditBaseModel {
 
     private Long id;
     @NotNull
@@ -23,7 +24,7 @@ public class ReportDTO {
 
     private EReportStatus status;
 
-    private Instant createdData;
+
 
     private UserDTO author;
 

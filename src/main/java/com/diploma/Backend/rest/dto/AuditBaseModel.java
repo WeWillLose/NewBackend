@@ -1,24 +1,16 @@
 package com.diploma.Backend.rest.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.time.Instant;
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 @SuperBuilder
-public class ToDoDTO extends AuditBaseModel {
-
-    private Long id;
-
-    private String title;
-
-    private String description;
-
-    private String text;
-
-    private UserDTO author;
+@Data
+public class AuditBaseModel {
+    private Instant createdDate;
+    private String createdBy;
 }

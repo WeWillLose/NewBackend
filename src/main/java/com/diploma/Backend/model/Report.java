@@ -4,13 +4,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.vladmihalcea.hibernate.type.json.JsonStringType;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 @ToString(of = {"id", "reportName","data"})
 @EqualsAndHashCode(callSuper = false, of = {"id","reportName","data"})
 @TypeDef(

@@ -1,6 +1,9 @@
 package com.diploma.Backend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -19,6 +22,9 @@ import java.time.Instant;
  */
 @EntityListeners(AuditingEntityListener.class)
 @MappedSuperclass
+@SuperBuilder
+@AllArgsConstructor
+@NoArgsConstructor
 public abstract class AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

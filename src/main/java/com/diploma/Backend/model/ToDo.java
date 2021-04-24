@@ -2,6 +2,7 @@ package com.diploma.Backend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 
@@ -12,7 +13,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @ToString(exclude = {"author"})
 @EqualsAndHashCode(exclude = {"author"}, callSuper = false)
-@Builder
+@SuperBuilder
 public class ToDo extends AbstractAuditingEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
