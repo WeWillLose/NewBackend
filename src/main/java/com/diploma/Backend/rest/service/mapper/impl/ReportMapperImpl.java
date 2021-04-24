@@ -7,6 +7,7 @@ import com.diploma.Backend.rest.service.mapper.IUserMapper;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,14 +30,16 @@ public class ReportMapperImpl implements IReportMapper {
             return null;
         } else {
             return ReportDTO.builder()
-                .author(userMapper.userToUserDTO(report.getAuthor()))
-                .data(report.getData())
-                .id(report.getId())
-                .reportName(report.getReportName())
-                .status(report.getStatus())
-                .build();
+                    .author(userMapper.userToUserDTO(report.getAuthor()))
+                    .data(report.getData())
+                    .id(report.getId())
+                    .reportName(report.getReportName())
+                    .status(report.getStatus())
+                    .createdData((report.getCreatedDate()))
+                    .build();
         }
     }
+
     @Override
     public List<ReportDTO> reportToReportDTOsWithoutData(List<Report> reports) {
         return reports.stream().map(this::reportToReportDTOWithoutData).collect(Collectors.toList());
@@ -48,11 +51,12 @@ public class ReportMapperImpl implements IReportMapper {
             return null;
         } else {
             return ReportDTO.builder()
-                .author(userMapper.userToUserDTO(report.getAuthor()))
-                .id(report.getId())
-                .reportName(report.getReportName())
-                .status(report.getStatus())
-                .build();
+                    .author(userMapper.userToUserDTO(report.getAuthor()))
+                    .id(report.getId())
+                    .reportName(report.getReportName())
+                    .status(report.getStatus())
+                    .createdData((report.getCreatedDate()))
+                    .build();
         }
     }
 
@@ -66,13 +70,15 @@ public class ReportMapperImpl implements IReportMapper {
         if (reportDTO == null) {
             return null;
         } else {
-            return Report.builder()
-                .author(userMapper.userDTOToUser(reportDTO.getAuthor()))
-                .data(reportDTO.getData())
-                .id(reportDTO.getId())
-                .reportName(reportDTO.getReportName())
-                .status(reportDTO.getStatus())
-                .build();
+            Report build = Report.builder()
+                    .author(userMapper.userDTOToUser(reportDTO.getAuthor()))
+                    .data(reportDTO.getData())
+                    .id(reportDTO.getId())
+                    .reportName(reportDTO.getReportName())
+                    .status(reportDTO.getStatus())
+                    .build();
+            build.setCreatedDate(reportDTO.getCreatedData());
+            return build;
         }
     }
 

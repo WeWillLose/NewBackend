@@ -31,7 +31,6 @@ public  class FileNameUtils {
         }
     }
 
-
     public static String generateRandomNameIfEmpty(@Nullable String name){
         if(name ==null || name.isBlank()){
             return String.format("%s",UUID.randomUUID().toString());

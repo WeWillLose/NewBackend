@@ -8,6 +8,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.Instant;
+import java.util.Date;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -19,6 +22,8 @@ public class ReportDTO {
     private JsonNode data;
 
     private EReportStatus status;
+
+    private Instant createdData;
 
     private UserDTO author;
 

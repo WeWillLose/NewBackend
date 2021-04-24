@@ -20,7 +20,6 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-
 public class User extends AbstractAuditingEntity implements UserDetails, Serializable {
 
     static final long SerialVersionUID = 1L;

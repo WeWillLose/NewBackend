@@ -1,9 +1,12 @@
 package com.diploma.Backend.security;
 
 import com.diploma.Backend.rest.exception.handler.AccessDeniedExceptionImpl;
+import com.diploma.Backend.utils.SecurityUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.domain.AuditorAware;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -15,13 +18,18 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
 
+import java.util.Optional;
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @RequiredArgsConstructor
+@EnableJpaAuditing(auditorAwareRef = "customAuditProvider")
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsService userDetailsService;
+
+    private final AuditorAwareImpl auditorAware;
 
     @Override
     public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
@@ -55,4 +63,10 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
+
+    @Bean
+    public AuditorAware<String> customAuditProvider() {
+        return new AuditorAwareImpl();
+    }
+
 }

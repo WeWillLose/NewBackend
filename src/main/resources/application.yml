@@ -14,7 +14,7 @@ spring:
     show-sql: true
     generate-ddl: true
     hibernate:
-      ddl-auto: validate
+      ddl-auto: create
 doc:
   report:
     pathToReportTemplate: src\\main\\resources\\static\\docx_templates\\template_report.docx

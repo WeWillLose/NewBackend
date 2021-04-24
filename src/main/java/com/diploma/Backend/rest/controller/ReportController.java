@@ -32,8 +32,8 @@ public class ReportController {
     private final IReportMapper reportMapperService;
 
     @PostMapping("")
-    public ResponseEntity<?> saveReport(@RequestBody Report report, @AuthenticationPrincipal User user){
-        return   ResponseEntity.ok(reportService.saveReport(report,user.getId()));
+    public ResponseEntity<?> saveReport(@RequestBody ReportDTO report, @AuthenticationPrincipal User user){
+        return   ResponseEntity.ok(reportService.saveReport(reportMapperService.reportDTOToReport(report),user.getId()));
 
     }
 
