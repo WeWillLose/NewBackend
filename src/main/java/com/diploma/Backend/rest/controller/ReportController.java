@@ -51,18 +51,18 @@ public class ReportController {
 
     @GetMapping("author/current")
     public ResponseEntity<?> getReportByCurrentUser(@AuthenticationPrincipal User user){
-            List<ReportDTO> reportDTOS = reportMapperService.reportToReportDTOs(reportService.findAllByAuthorId(user.getId()));
+            List<ReportDTO> reportDTOS = reportMapperService.reportToReportDTOsWithoutData(reportService.findAllByAuthorId(user.getId()));
             return ResponseEntity.ok().body(reportDTOS);
     }
 
     @GetMapping("followers/{id}")
     public ResponseEntity<?> getReportByChairmanId(@PathVariable(name = "id") Long chairmanID){
-            List<ReportDTO> followersReports = reportMapperService.reportToReportDTOs(reportService.findFollowersReports(chairmanID));
+            List<ReportDTO> followersReports = reportMapperService.reportToReportDTOsWithoutData(reportService.findFollowersReports(chairmanID));
             return ResponseEntity.ok().body(followersReports);
     }
     @GetMapping("followers/current")
     public ResponseEntity<?> getReportByChairmanId(@AuthenticationPrincipal User user){
-            List<ReportDTO> followersReports = reportMapperService.reportToReportDTOs(reportService.findFollowersReports(user.getId()));
+            List<ReportDTO> followersReports = reportMapperService.reportToReportDTOsWithoutData(reportService.findFollowersReports(user.getId()));
             return ResponseEntity.ok().body(followersReports);
     }
     @DeleteMapping("{id}")
