@@ -10,7 +10,7 @@ import static org.springframework.util.StringUtils.capitalize;
 @Component
 public class UserUtils {
 
-    public String getFioFromUser(@Nullable User user){
+    public static String getFioFromUser(@Nullable User user){
         if(user == null) return "";
         StringBuilder stringBuilder = new StringBuilder();
         if(user.getLastName()!=null && !user.getLastName().isBlank()){
@@ -27,7 +27,7 @@ public class UserUtils {
     }
 
 
-    public String getShortFioFromUser(@Nullable User user){
+    public static String getShortFioFromUser(@Nullable User user){
 
         if(user == null) return "";
 

@@ -29,6 +29,8 @@ public class UserDTO{
 
     private String middleName;
 
+    private UserDTO chairman;
+
     private Set<Role> roles = new HashSet<>();
 
 

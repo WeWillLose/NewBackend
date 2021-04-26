@@ -35,7 +35,6 @@ public class ReportServiceImpl implements ReportService {
 
     private final UserService userService;
 
-    private final UserUtils userUtils;
 
     private final ReportDocxService reportDocxService;
 
@@ -44,11 +43,10 @@ public class ReportServiceImpl implements ReportService {
     private final SecurityUtils securityUtils;
 
     public ReportServiceImpl(ReportRepo reportRepo, @Lazy UserService userService,
-                             @Lazy UserUtils userUtils, @Lazy ReportDocxService reportDocxService,
+                             @Lazy ReportDocxService reportDocxService,
                              ReportValidationService reportValidationService, SecurityUtils securityUtils) {
         this.reportRepo = reportRepo;
         this.userService = userService;
-        this.userUtils = userUtils;
         this.reportDocxService = reportDocxService;
         this.reportValidationService = reportValidationService;
         this.securityUtils = securityUtils;
@@ -133,7 +131,7 @@ public class ReportServiceImpl implements ReportService {
 
         if (author.getChairman() != null && report.getData().get("META").get("chairmanFIO") == null) {
             ((ObjectNode) report.getData().get("META")).put("chairmanFIO",
-                userUtils.getShortFioFromUser(author)
+                UserUtils.getShortFioFromUser(author)
             );
         }
 

@@ -16,17 +16,27 @@ public class UserMapperImpl implements com.diploma.Backend.rest.service.mapper.I
         return users.stream().filter(Objects::nonNull).map(this::userToUserDTO).collect(Collectors.toList());
     }
 
+    private UserDTO chairmanToUserDTOs(User user) {
+        return user ==null?null: UserDTO.builder()
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .middleName(user.getMiddleName())
+                .username(user.getUsername())
+                .id(user.getId())
+                .build();
+    }
     @Override
     public UserDTO userToUserDTO(User user) {
-        return user == null? null:
-         UserDTO.builder()
-            .firstName(user.getFirstName())
-            .lastName(user.getLastName())
-            .middleName(user.getMiddleName())
-            .username(user.getUsername())
-            .roles(user.getRoles())
-            .id(user.getId())
-            .build();
+        return user == null ? null :
+                UserDTO.builder()
+                        .firstName(user.getFirstName())
+                        .lastName(user.getLastName())
+                        .middleName(user.getMiddleName())
+                        .username(user.getUsername())
+                        .roles(user.getRoles())
+                        .id(user.getId())
+                        .chairman(chairmanToUserDTOs(user.getChairman()))
+                        .build();
     }
 
 

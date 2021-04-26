@@ -86,10 +86,10 @@ public class SecurityUtils {
         return user != null && user.getRoles().contains(ROLES.ADMIN);
     }
     public static boolean isChairman(User user) {
-        return user != null && user.getRoles().contains(ROLES.ADMIN);
+        return user != null && user.getRoles().contains(ROLES.CHAIRMAN);
     }
     public static boolean isCurrentUserAdmin() {
-        return hasCurrentUserThisRole(ROLES.CHAIRMAN);
+        return hasCurrentUserThisRole(ROLES.ADMIN);
     }
     public static boolean isCurrentUserChairman() {
         return hasCurrentUserThisRole(ROLES.CHAIRMAN);
