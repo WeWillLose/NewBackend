@@ -27,7 +27,7 @@ public class User extends AbstractAuditingEntity implements UserDetails, Seriali
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "user_id_generator")
-    @SequenceGenerator(name = "user_id_generator",initialValue = 1,allocationSize = 5,sequenceName = "user_id_sequence")
+    @SequenceGenerator(name = "user_id_generator",initialValue = 2,allocationSize = 5,sequenceName = "user_id_sequence")
     private Long id;
 
     @Column(unique = true)
