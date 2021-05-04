@@ -44,23 +44,23 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable()
-            .authorizeRequests().antMatchers("/api/v1/auth/**").permitAll()
-            .anyRequest().authenticated()
-            .and()
-            .rememberMe()
-            .and()
-            .exceptionHandling()
-            .accessDeniedHandler(accessDeniedHandler());
+        http.cors().and().csrf().ignoringAntMatchers("/instances", "/actuator/**").disable()
+                .authorizeRequests().antMatchers("/api/v1/auth/**").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .rememberMe().
+                and()
+                .exceptionHandling()
+                .accessDeniedHandler(accessDeniedHandler());
     }
 
     @Bean
-    public AccessDeniedHandler accessDeniedHandler()
-    {
+    public AccessDeniedHandler accessDeniedHandler() {
         return new AccessDeniedExceptionImpl();
     }
+
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 

@@ -86,10 +86,17 @@ public class ReportController {
     }
 
     @PutMapping("data/{id}")
-    public ResponseEntity<?> updateReport(@PathVariable(name="id") Long reportId,@RequestBody ReportDTO reportDTO){
+    public ResponseEntity<?> updateReportData(@PathVariable(name="id") Long reportId, @RequestBody ReportDTO reportDTO){
             return ResponseEntity.ok().body(reportMapperService.reportToReportDTO(reportService.updateReportData(reportId,
                     reportMapperService.reportDTOToReport(reportDTO))));
     }
+    @PutMapping("{id}")
+    @PreAuthorize("hasAnyRole('ADMIN','CHAIRMAN')")
+    public ResponseEntity<?> updateReport(@PathVariable(name="id") Long reportId, @RequestBody ReportDTO reportDTO){
+        return ResponseEntity.ok().body(reportMapperService.reportToReportDTO(reportService.updateReport(reportId,
+                reportMapperService.reportDTOToReport(reportDTO))));
+    }
+
     @PutMapping("status/{id}")
     @PreAuthorize("hasAnyRole('ADMIN','CHAIRMAN')")
     public ResponseEntity<?> updateReportStatus(@PathVariable(name="id") Long reportId, @Valid @RequestBody ReportStatusDTO reportStatusDTO){

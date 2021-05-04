@@ -120,15 +120,13 @@ public class ReportServiceImpl implements ReportService {
             throw new UserNotFoundExceptionImpl(authorId);
         }
 
-        report.setReportName(FileNameUtils.generateRandomNameIfEmpty(report.getReportName()));
-
         List<String> errors = reportValidationService.validateReport(report);
         if (errors != null) {
             if (!errors.isEmpty()) {
                 throw new ValidationExceptionImpl(errors.get(0));
             }
         }
-
+        report.setReportName(FileNameUtils.generateRandomNameIfEmpty(report.getReportName()));
         if (author.getChairman() != null && report.getData().get("META").get("chairmanFIO") == null) {
             ((ObjectNode) report.getData().get("META")).put("chairmanFIO",
                 UserUtils.getShortFioFromUser(author)
@@ -181,6 +179,25 @@ public class ReportServiceImpl implements ReportService {
             throw new NullPointerException("IN generateReportDocx report.data is null");
         }
         return new InputStreamResourceDTO(reportDocxService.getReportDocxInputStreamResourceByReportData(report.getData()), reportFileName);
+    }
+
+    @Override
+    @Transactional
+    public Report updateReport(Long reportId, Report report) {
+        Report reportById = findByReportId(reportId).orElse(null);
+        if (reportById == null) {
+            throw new ReportNotFoundExceptionImpl(reportId);
+        }
+        if(report.getReportName() != null && !report.getReportName().isBlank()){
+            reportById.setReportName(report.getReportName());
+        }
+        if(report.getStatus() != null ){
+            reportById.setStatus(report.getStatus());
+        }
+        if(report.getData() != null ){
+            reportById.setData(report.getData());
+        }
+        return reportRepo.save(reportById);
     }
 
 }

@@ -39,4 +39,7 @@ public interface ReportService {
 
     @Transactional(readOnly = true)
     InputStreamResourceDTO generateReportDocx(long reportId);
+
+    @Transactional
+    Report updateReport(Long reportId, Report reportDTOToReport);
 }

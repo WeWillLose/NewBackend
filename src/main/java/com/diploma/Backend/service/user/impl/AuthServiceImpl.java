@@ -1,5 +1,7 @@
 package com.diploma.Backend.service.user.impl;
 
+import com.diploma.Backend.model.ERole;
+import com.diploma.Backend.model.Role;
 import com.diploma.Backend.model.User;
 import com.diploma.Backend.rest.dto.LoginDTO;
 import com.diploma.Backend.rest.dto.SignupDTO;
@@ -16,6 +18,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -25,33 +29,34 @@ public class AuthServiceImpl implements com.diploma.Backend.service.user.AuthSer
 
     @Override
     public User authenticateUser(@NonNull LoginDTO loginDTO) {
-        try{
+        try {
             Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginDTO.getUsername(), loginDTO.getPassword()));
+                    new UsernamePasswordAuthenticationToken(loginDTO.getUsername(), loginDTO.getPassword()));
             SecurityContextHolder.getContext().setAuthentication(authentication);
             User user = (User) authentication.getPrincipal();
             log.info("IN authenticateUser user with username: {}, password : {} wos authenticated",
-                loginDTO.getUsername(), loginDTO.getPassword());
+                    loginDTO.getUsername(), loginDTO.getPassword());
             return user;
-        }catch (AuthenticationException e){
+        } catch (AuthenticationException e) {
             log.error("IN authenticateUser auth for user with login: {}, and password: {} failed", loginDTO.getUsername(), loginDTO.getPassword());
-            throw  new UserNotFoundExceptionImpl();
+            throw new UserNotFoundExceptionImpl();
         }
     }
 
     @Override
     @PreAuthorize("hasRole('ADMIN')")
     public User registerUser(@NonNull SignupDTO signUpDTO) {
-        log.info("IN registerUser signUpDTO: {}",signUpDTO);
+        log.info("IN registerUser signUpDTO: {}", signUpDTO);
 
         User userToSave = User.builder()
-            .username(signUpDTO.getUsername())
-            .password(signUpDTO.getPassword())
-            .lastName(signUpDTO.getLastName())
-            .firstName(signUpDTO.getFirstName())
-            .middleName(signUpDTO.getMiddleName())
-            .isActive(true)
-            .build();
+                .username(signUpDTO.getUsername())
+                .password(signUpDTO.getPassword())
+                .lastName(signUpDTO.getLastName())
+                .firstName(signUpDTO.getFirstName())
+                .middleName(signUpDTO.getMiddleName())
+                .roles(Collections.singleton(new Role(ERole.TEACHER)))
+                .isActive(true)
+                .build();
         return userService.createUser(userToSave);
     }
 }

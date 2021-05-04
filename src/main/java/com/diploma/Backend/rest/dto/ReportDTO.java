@@ -19,12 +19,11 @@ import java.util.Date;
 public class ReportDTO extends AuditBaseModel {
 
     private Long id;
+
     @NotNull
     private JsonNode data;
 
     private EReportStatus status;
-
-
 
     private UserDTO author;
 
