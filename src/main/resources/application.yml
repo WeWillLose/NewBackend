@@ -3,22 +3,14 @@ server:
   http2:
     enabled: true
 spring:
-  boot:
-    admin:
-      client:
-        username: admin
-        password: admin-password
-        url: http://localhost:8084
-
-
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/diplomaproject?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=GMT
     username: root
     password: root
   flyway:
-    enabled: false
+    enabled: true
   jpa:
-    show-sql: true
+    show-sql: false
     generate-ddl: true
     hibernate:
       ddl-auto: validate

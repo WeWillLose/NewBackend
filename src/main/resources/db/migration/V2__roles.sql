@@ -1,0 +1,4 @@
+INSERT INTO role(name) VALUES('TEACHER');
+INSERT INTO role(name) VALUES('CHAIRMAN');
+INSERT INTO role(name) VALUES('ADMIN');
+
